@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from marshmallow.exceptions import ValidationError
 from Category import Category
 from schemas import HelpOfferSchema, HelpRequestSchema
+from with_login import with_login
 import json
 
 res = Blueprint('resources', __name__, url_prefix='/api/resources')
@@ -35,5 +36,7 @@ def help_request():
         return "help-request GET"
 
 @res.route('/categories', methods=['GET'])
-def get_categories():
+@with_login
+def get_categories(current_user):
+    # return current_user
     return json.dumps(vars(Category)['_member_names_'])
