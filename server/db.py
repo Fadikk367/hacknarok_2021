@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 from flask import current_app 
 from config import MONGO_DBNAME, MONGO_STR, JWT_KEY
+=======
+from utils import env
+>>>>>>> b9672bcbd1213e56a0f64484a28e414970eb4503
 import pymongo
 
 class Database:

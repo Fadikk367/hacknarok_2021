@@ -3,9 +3,10 @@ from marshmallow.exceptions import ValidationError
 from Category import Category
 from schemas import HelpOfferSchema, HelpRequestSchema
 from with_login import with_login
-import json
+from flask import jsonify
 
 res = Blueprint('resources', __name__, url_prefix='/api/resources')
+db = Database()
 
 @res.route('/')
 def hello():
@@ -21,8 +22,15 @@ def help_offer():
             return e.messages, 404
 
     if request.method == 'GET':
-
-        return "help-offer GET"
+        tags = request.args.getlist('tags')
+        category = request.args.get('category')
+        query = {}
+        if(tags):
+            query['tags'] = {'$all': tags}
+        if(category):
+            query['category'] = category
+        result = list(db.ffers.find(query))
+        return jsonify(result)
 
 @res.route('/help-request', methods=['GET', 'POST'])
 def help_request():
@@ -33,10 +41,16 @@ def help_request():
             return e.messages, 404
 
     if request.method == 'GET':
-        return "help-request GET"
+        tags = request.args.getlist('tags')
+        category = request.args.get('category')
+        query = {}
+        if(tags):
+            query['tags'] = {'$all': tags}
+        if(category):
+            query['category'] = category
+        result = list(db.requests.find(query))
+        return jsonify(result)
 
 @res.route('/categories', methods=['GET'])
-@with_login
-def get_categories(current_user):
-    # return current_user
-    return json.dumps(vars(Category)['_member_names_'])
+def get_categories():
+    return jsonify(vars(Category)['_member_names_'])
