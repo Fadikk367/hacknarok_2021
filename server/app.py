@@ -1,9 +1,11 @@
 from flask import Flask
-from api import apiv1
+from resources import res 
+from auth import auth
 
 app = Flask(__name__)
 
-app.register_blueprint(apiv1)
+app.register_blueprint(res)
+app.register_blueprint(auth)
 
 if __name__ == '__main__':
     app.run()
