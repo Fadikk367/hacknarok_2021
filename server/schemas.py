@@ -1,4 +1,6 @@
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields, validate, validates_schema
+from marshmallow.exceptions import ValidationError
+from Category import Category
 
 class LoginSchema(Schema):
     login = fields.Str(
@@ -32,6 +34,13 @@ class RegisterSchema(LoginSchema):
 
 
 class HelpOfferSchema(Schema): 
+    author_id = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(equal=24)
+        ]
+    )
+
     title = fields.Str(
         required=True,
         validate=[
@@ -46,12 +55,10 @@ class HelpOfferSchema(Schema):
         ]
     )
 
-    category = fields.Str(
-        required=True,
-        validate=[
-            validate.Length(min=2, max=20),
-        ]
+    category = fields.Integer(
+        required=True
     )
+
     tags = fields.List(
         fields.Str(
             required=True
@@ -61,9 +68,20 @@ class HelpOfferSchema(Schema):
         ]
     )
 
+    @validates_schema
+    def validate_numbers(self, data, **kwargs):
+        if not Category.has_value(data["category"]):
+            raise ValidationError("No such category")
 
 
 class HelpRequestSchema(Schema): 
+    author_id = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(equal=24)
+        ]
+    )
+
     title = fields.Str(
         required=True,
         validate=[
@@ -78,12 +96,10 @@ class HelpRequestSchema(Schema):
         ]
     )
 
-    category = fields.Str(
-        required=True,
-        validate=[
-            validate.Length(min=2, max=20),
-        ]
+    category = fields.Integer(
+        required=True
     )
+
     tags = fields.List(
         fields.Str(
             required=True
@@ -92,3 +108,8 @@ class HelpRequestSchema(Schema):
             validate.Length(min=2, max=30)
         ]
     )
+
+    @validates_schema
+    def validate_numbers(self, data, **kwargs):
+        if not Category.has_value(data["category"]):
+            raise ValidationError("No such category")
