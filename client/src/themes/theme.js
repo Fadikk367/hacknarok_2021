@@ -18,7 +18,7 @@ export const theme = createMuiTheme({
         fontFamily: "Roboto",
     },
     shape: {
-        borderRadius: 20
+        borderRadius: 40
     },
     spacing: 20
   },
