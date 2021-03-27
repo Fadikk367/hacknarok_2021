@@ -1,10 +1,11 @@
 from flask import Flask
+from resources import res 
+from auth import auth
+
 app = Flask(__name__)
 
-
-@app.route('/')
-def hello():
-    return "Hello World!"
+app.register_blueprint(res)
+app.register_blueprint(auth)
 
 if __name__ == '__main__':
     app.run()
