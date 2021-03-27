@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 from Category import Category
+import json
 
 res = Blueprint('resources', __name__, url_prefix='/api/resources')
 
@@ -35,3 +36,7 @@ def help_request():
         return f'title = {title}, description = {description}, category = {category}, tags = {tags}'
     if request.method == 'GET':
         return "help-request GET"
+
+@res.route('/categories', methods=['GET'])
+def get_categories():
+    return json.dumps(vars(Category)['_member_names_'])
