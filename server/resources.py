@@ -24,7 +24,14 @@ def help_offer():
 
     if request.method == 'GET':
         tags = request.args.getlist('tags')
-        return json_util.dumps(list(db["help-offers"].find({'tags': {'$all': tags}})))
+        category = request.args.get('category')
+        query = {}
+        if(tags):
+            query['tags'] = {'$all': tags}
+        if(category):
+            query['category'] = category
+        result = list(db["help-offers"].find(query))
+        return json_util.dumps(result)
 
 @res.route('/help-request', methods=['GET', 'POST'])
 def help_request():
@@ -36,7 +43,14 @@ def help_request():
 
     if request.method == 'GET':
         tags = request.args.getlist('tags')
-        return json_util.dumps(list(db["help-requests"].find({'tags': {'$all': tags}})))
+        category = request.args.get('category')
+        query = {}
+        if(tags):
+            query['tags'] = {'$all': tags}
+        if(category):
+            query['category'] = category
+        result = list(db["help-requests"].find(query))
+        return json_util.dumps(result)
 
 @res.route('/categories', methods=['GET'])
 def get_categories():
