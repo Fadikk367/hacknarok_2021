@@ -4,6 +4,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 import { Home, Offers, Profile } from 'pages';
 import { Header, Footer } from 'common/components';
 
+
 function App() {
   return (
     <div>
