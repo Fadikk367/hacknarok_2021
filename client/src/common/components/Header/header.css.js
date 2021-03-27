@@ -9,6 +9,9 @@ export const CustomHeader = styled.header`
     color: white;
     height: 70px;
     z-index: 100;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 `;
 
 export const HeaderContent = styled.div`
@@ -22,3 +25,6 @@ export const HeaderContent = styled.div`
     justify-content: space-between;
     align-items: center;
 `;
+
+
+

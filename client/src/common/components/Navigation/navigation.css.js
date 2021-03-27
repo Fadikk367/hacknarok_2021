@@ -29,3 +29,16 @@ export const LogoutButton = styled(Button)`
         padding: 10px;
     }
 `;
+
+export const MenuBurger = styled.div` 
+    cursor: pointer;
+`
+
+export const Line = styled.div`
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+`;
