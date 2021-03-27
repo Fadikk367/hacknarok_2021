@@ -1,7 +1,7 @@
 from flask import Blueprint, request
+from Category import Category
 
 apiv1 = Blueprint('api', __name__, url_prefix='/api/v1')
-
 
 @apiv1.route('/')
 def hello():
@@ -31,7 +31,7 @@ def help_offer():
         json_data = request.get_json()
         title = json_data['title']
         description = json_data['description']
-        category = json_data['category']
+        category = Category[json_data['category']]
         tags = json_data['tags']
 
         return f'title = {title}, description = {description}, category = {category}, tags = {tags}'
@@ -46,7 +46,7 @@ def help_request():
         json_data = request.get_json()
         title = json_data['title']
         description = json_data['description']
-        category = json_data['category']
+        category = Category[json_data['category']]
         tags = json_data['tags']
 
         return f'title = {title}, description = {description}, category = {category}, tags = {tags}'
