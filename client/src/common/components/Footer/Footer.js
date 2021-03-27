@@ -1,10 +1,13 @@
-import React from 'react'
+import React from 'react';
+
+import { Wrapper } from './Footer.css';
+
 
 const Footer = () => {
   return (
-    <footer>
+    <Wrapper>
       footer
-    </footer>
+    </Wrapper>
   )
 }
 
