@@ -1,5 +1,7 @@
 from flask import Blueprint, request
+from marshmallow.exceptions import ValidationError
 from Category import Category
+from schemas import HelpOfferSchema, HelpRequestSchema
 import json
 
 res = Blueprint('resources', __name__, url_prefix='/api/resources')
@@ -12,13 +14,10 @@ def hello():
 @res.route('/help-offer', methods=['GET', 'POST'])
 def help_offer():
     if request.method == 'POST':
-        json_data = request.get_json()
-        title = json_data['title']
-        description = json_data['description']
-        category = Category[json_data['category']]
-        tags = json_data['tags']
-
-        return f'title = {title}, description = {description}, category = {category}, tags = {tags}'
+        try:
+            return HelpOfferSchema().load(request.get_json())
+        except ValidationError as e:
+            return e.messages, 404
 
     if request.method == 'GET':
 
@@ -27,13 +26,11 @@ def help_offer():
 @res.route('/help-request', methods=['GET', 'POST'])
 def help_request():
     if request.method == 'POST':
-        json_data = request.get_json()
-        title = json_data['title']
-        description = json_data['description']
-        category = Category[json_data['category']]
-        tags = json_data['tags']
+        try:
+            return HelpRequestSchema().load(request.get_json())
+        except ValidationError as e:
+            return e.messages, 404
 
-        return f'title = {title}, description = {description}, category = {category}, tags = {tags}'
     if request.method == 'GET':
         return "help-request GET"
 
