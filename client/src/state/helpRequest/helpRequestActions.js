@@ -8,7 +8,7 @@ export const GET_HELP_REQUESTS_FAILURE = 'ADD_HELP_REQUESTS_FAILURE';
 
 export const addHelpRequest = requestAttributes => async dispatch => {
   try {
-    const res = await axios.post('/help-request', requestAttributes);
+    const res = await axios.post('/api/resources/help-request', requestAttributes);
 
     dispatch({
       type: ADD_HELP_REQUEST_SECCESS,
@@ -24,7 +24,7 @@ export const addHelpRequest = requestAttributes => async dispatch => {
 
 export const getHelpRequests = filters => async dispatch => {
   try {
-    const res = await axios.get('/help-request', filters);
+    const res = await axios.get('/api/resources/help-request', filters);
 
     dispatch({
       type: GET_HELP_REQUESTS_SECCESS,
