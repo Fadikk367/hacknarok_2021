@@ -1,4 +1,4 @@
-from .utils import env
+from utils import env
 import pymongo
 
 class Database:

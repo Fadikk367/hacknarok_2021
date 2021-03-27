@@ -2,7 +2,10 @@ from flask import Blueprint, request
 from marshmallow.exceptions import ValidationError
 from Category import Category
 from schemas import HelpOfferSchema, HelpRequestSchema
-import json
+from db import Database
+import bson.json_util as json_util
+
+db = Database().db
 
 res = Blueprint('resources', __name__, url_prefix='/api/resources')
 
@@ -20,8 +23,8 @@ def help_offer():
             return e.messages, 404
 
     if request.method == 'GET':
-
-        return "help-offer GET"
+        tags = request.args.getlist('tags')
+        return json_util.dumps(list(db["help-offers"].find({'tags': {'$all': tags}})))
 
 @res.route('/help-request', methods=['GET', 'POST'])
 def help_request():
@@ -32,8 +35,9 @@ def help_request():
             return e.messages, 404
 
     if request.method == 'GET':
-        return "help-request GET"
+        tags = request.args.getlist('tags')
+        return json_util.dumps(list(db["help-requests"].find({'tags': {'$all': tags}})))
 
 @res.route('/categories', methods=['GET'])
 def get_categories():
-    return json.dumps(vars(Category)['_member_names_'])
+    return json_util.dumps(vars(Category)['_member_names_'])
