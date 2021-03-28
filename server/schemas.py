@@ -53,6 +53,10 @@ class HelpOfferSchema(Schema):
                 validate.Length(min=1, max=50),
             ]
         ),
+        login=fields.Str(
+            required=True,
+            validate=validate.Email(error="Not a valid email address")
+        ),
         required=True
     )
 
@@ -112,6 +116,10 @@ class HelpRequestSchema(Schema):
                 validate.Length(min=1, max=50),
             ]
         ),
+        login=fields.Str(
+            required=True,
+            validate=validate.Email(error="Not a valid email address")
+        ),
         required=True
     )
 
@@ -169,6 +177,10 @@ class MessageSchema(Schema):
                 validate.Length(min=1, max=50),
             ]
         ),
+        login=fields.Str(
+            required=True,
+            validate=validate.Email(error="Not a valid email address")
+        ),
         required=True
     )
 
@@ -219,6 +231,10 @@ class ConsultationSchema(Schema):
             validate=[
                 validate.Length(min=1, max=50),
             ]
+        ),
+        login=fields.Str(
+            required=True,
+            validate=validate.Email(error="Not a valid email address")
         ),
         required=True
     )
