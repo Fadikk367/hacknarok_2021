@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
@@ -10,10 +11,17 @@ import { Modal } from 'common/components';
 import { AddHelpRequestForm, HelpRequestsList, HelpRequestsFilterForm } from './components';
 import { FlexRow } from './Offers.css';
 
+import { getHelpRequests } from 'state/helpRequest'
+
 
 const Offers = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFilterFormOpen, setIsFilterFormOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getHelpRequests());
+  }, []);
 
   return (
     <div>

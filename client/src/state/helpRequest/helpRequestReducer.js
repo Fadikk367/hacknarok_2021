@@ -43,7 +43,7 @@ function helpRequestReducer(state = initialState, action) {
 
       return {
         ...state,
-        requests: helpRequests
+        requests: [...helpRequests, ...initialState]
       }
     }
     case ADD_HELP_REQUEST_SECCESS: {
