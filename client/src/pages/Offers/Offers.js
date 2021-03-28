@@ -77,7 +77,7 @@ const Offers = () => {
       </Paper>
       <HelpRequestsList />
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)} width={800}>
-        <AddHelpRequestForm onSubmit={() => setIsModalOpen(false)}/>
+        <AddHelpRequestForm onSubmit={() => setIsModalOpen(false)} helpType={helpType}/>
       </Modal>
     </div>
   )

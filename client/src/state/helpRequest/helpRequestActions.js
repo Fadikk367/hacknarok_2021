@@ -8,10 +8,10 @@ export const GET_CATEGORIES_SECCESS = 'GET_CATEGORIES_SECCESS';
 export const GET_CATEGORIES_FAILURE = 'GET_CATEGORIES_FAILURE';
 
 
-export const addHelpRequest = requestAttributes => async dispatch => {
+export const addHelpRequest = (requestAttributes, helpType) => async dispatch => {
   console.log("hi from add");
   try {
-    const res = await axios.post('/api/resources/help-request', requestAttributes);
+    const res = await axios.post(`/api/resources/help-${helpType}`, requestAttributes);
 
     dispatch({
       type: ADD_HELP_REQUEST_SECCESS,

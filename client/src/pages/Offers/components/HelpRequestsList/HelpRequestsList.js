@@ -19,7 +19,7 @@ const HelpRequestsList = () => {
   return (
     <RequestsSection>
       {helpRequests.map(request => (
-        <Card elevation={3} square>
+        <Card elevation={3} square key={request._id}>
           <CardContent style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <CardHeader gutterBottom variant="h5" component="h2" >
               {request.title}

@@ -68,7 +68,7 @@ class HelpOfferSchema(Schema):
     description = fields.Str(
         required=True,
         validate=[
-            validate.Length(min=2, max=20),
+            validate.Length(min=2, max=1000),
         ]
     )
 

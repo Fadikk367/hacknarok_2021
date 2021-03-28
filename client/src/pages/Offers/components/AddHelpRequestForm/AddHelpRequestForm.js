@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 import { addHelpRequest } from 'state/helpRequest';
 
 
-const AddHelpRequestForm = ({ onSubmit }) => {
+const AddHelpRequestForm = ({ onSubmit, helpType }) => {
   const categories = useSelector(state => state.helpRequest.categories);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -31,7 +31,7 @@ const AddHelpRequestForm = ({ onSubmit }) => {
       tags: tags.split(','), 
       category: categories.findIndex(cat => cat === category) + 1, 
       date: new Date().toISOString().substring(0, 10)
-    }));
+    }, helpType));
 
     onSubmit();
   }
@@ -54,7 +54,7 @@ const AddHelpRequestForm = ({ onSubmit }) => {
               style={{ minWidth: '200px' }}
             >
               {categories.map(category => (
-                <MenuItem value={category}>{category}</MenuItem>
+                <MenuItem value={category} key={category}>{category}</MenuItem>
               ))}
             </Select>
           </FormControl>

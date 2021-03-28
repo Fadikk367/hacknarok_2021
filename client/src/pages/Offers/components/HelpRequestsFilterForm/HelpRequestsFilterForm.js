@@ -46,7 +46,7 @@ const HelpRequestsFilterForm = ({ helpType }) => {
           style={{ minWidth: '200px' }}
         >
           {categories.map(category => (
-            <MenuItem value={category}>{category}</MenuItem>
+            <MenuItem value={category} key={category}>{category}</MenuItem>
           ))}
         </Select>
       </FormControl>
