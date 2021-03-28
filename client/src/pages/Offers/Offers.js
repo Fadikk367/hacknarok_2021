@@ -9,14 +9,15 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import FilterListIcon from '@material-ui/icons/FilterList';
 
 import { Modal } from 'common/components';
-import { AddHelpRequestForm, HelpRequestsList, HelpRequestsFilterForm } from './components';
+import { AddHelpRequestForm, HelpRequestsList, HelpRequestsFilterForm, ReplyForm } from './components';
 import { FlexRow } from './Offers.css';
 
 import { getHelpRequests } from 'state/helpRequest'
 
 
 const Offers = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddRequestModalOpen, setIsAddRequestModalOpen] = useState(false);
+  const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
   const [helpType, setHelpType] = useState('request');
   const [isFilterFormOpen, setIsFilterFormOpen] = useState(false);
   const dispatch = useDispatch();
@@ -24,7 +25,6 @@ const Offers = () => {
   useEffect(() => {
     dispatch(getHelpRequests({}, helpType));
   }, [helpType]);
-
 
   return (
     <div>
@@ -57,7 +57,7 @@ const Offers = () => {
       <Paper elevation={5} square style={{ marginBottom: '30px' }}>
         <FlexRow>
           <Button 
-            onClick={() => setIsModalOpen(true)} 
+            onClick={() => setIsAddRequestModalOpen(true)} 
             startIcon={<PostAddIcon />}
             size='large'
           >
@@ -75,9 +75,12 @@ const Offers = () => {
           <HelpRequestsFilterForm helpType={helpType}/>
         </Collapse>
       </Paper>
-      <HelpRequestsList />
-      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)} width={800}>
-        <AddHelpRequestForm onSubmit={() => setIsModalOpen(false)} helpType={helpType}/>
+      <HelpRequestsList openReplyModal={() => setIsReplyModalOpen(true)}/>
+      <Modal open={isAddRequestModalOpen} onClose={() => setIsAddRequestModalOpen(false)} width={800}>
+        <AddHelpRequestForm onSubmit={() => setIsAddRequestModalOpen(false)} helpType={helpType}/>
+      </Modal>
+      <Modal open={isReplyModalOpen} onClose={() => setIsReplyModalOpen(false)} width={800}>
+        <ReplyForm onSubmit={() => setIsReplyModalOpen(false)}/>
       </Modal>
     </div>
   )

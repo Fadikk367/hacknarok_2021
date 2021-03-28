@@ -24,7 +24,7 @@ const HelpRequestsFilterForm = ({ helpType }) => {
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(getHelpRequests({ 
-      category: categories.findIndex(cat => cat === category), 
+      category: categories.findIndex(cat => cat === category) + 1, 
       tags: tags.split(',') 
     }, 
     helpType

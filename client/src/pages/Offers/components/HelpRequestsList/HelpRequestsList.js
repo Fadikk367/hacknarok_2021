@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -11,10 +11,18 @@ import Typography from '@material-ui/core/Typography';
 
 import { RequestsSection, CardHeader } from './HelpRequestsList.css';
 
+import { replyStart } from 'state/helpRequest'
+
   
-const HelpRequestsList = () => {
+const HelpRequestsList = ({ openReplyModal }) => {
   const helpRequests = useSelector(state => state.helpRequest.requests);
   const categories = useSelector(state => state.helpRequest.categories);
+  const dispatch = useDispatch();
+
+  const handleReplyClick = (author, requestId) => {
+    dispatch(replyStart(author, requestId));
+    openReplyModal();
+  }
   
   return (
     <RequestsSection>
@@ -50,7 +58,7 @@ const HelpRequestsList = () => {
             </Grid>
           </CardContent>
           <CardActions>
-            <Button color="primary">
+            <Button color="primary" onClick={() => handleReplyClick(request.author, request._id)}>
               Reply
             </Button>
             <Button color="primary">

@@ -6,7 +6,8 @@ export const GET_HELP_REQUESTS_SECCESS = 'GET_HELP_REQUESTS_SECCESS';
 export const GET_HELP_REQUESTS_FAILURE = 'GET_HELP_REQUESTS_FAILURE';
 export const GET_CATEGORIES_SECCESS = 'GET_CATEGORIES_SECCESS';
 export const GET_CATEGORIES_FAILURE = 'GET_CATEGORIES_FAILURE';
-
+export const START_REQUEST_REPLY = 'START_REQUEST_REPLY';
+export const END_REQUEST_REPLY = 'END_REQUEST_REPLY';
 
 export const addHelpRequest = (requestAttributes, helpType) => async dispatch => {
   console.log("hi from add");
@@ -66,6 +67,38 @@ export const getRequestCategoires = () => async dispatch => {
       payload: res.data.categories,
     });
   } catch(err) {
+    dispatch({
+      type: GET_CATEGORIES_FAILURE,
+      payload: err.message,
+    });
+  }
+}
+
+
+export const replyStart = (author, requestId) => {
+  return ({
+    type: START_REQUEST_REPLY,
+    payload: { author, requestId }
+  });
+}
+
+export const replyEnd = () => {
+  return ({
+    type: END_REQUEST_REPLY
+  });
+}
+
+export const sendMessage = message => async dispatch => {
+  try {
+    const res = await axios.post('/api/resources/messages', message);
+
+    dispatch({
+      type: GET_CATEGORIES_SECCESS,
+      payload: res.data.categories,
+    });
+  } catch(err) {
+    console.log(err);
+    
     dispatch({
       type: GET_CATEGORIES_FAILURE,
       payload: err.message,

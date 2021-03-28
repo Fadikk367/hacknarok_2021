@@ -2,12 +2,18 @@ import {
   GET_HELP_REQUESTS_SECCESS,
   ADD_HELP_REQUEST_SECCESS,
   GET_CATEGORIES_SECCESS,
+  START_REQUEST_REPLY,
+  END_REQUEST_REPLY,
 } from './helpRequestActions';
 
 
 const initialState = {
   categories: [],
   requests: [],
+  reply: {
+    author: null,
+    requestID: null
+  }
 }
 
 function helpRequestReducer(state = initialState, action) {
@@ -34,6 +40,26 @@ function helpRequestReducer(state = initialState, action) {
       return {
         ...state,
         categories,
+      }
+    }
+    case START_REQUEST_REPLY: {
+      const { author, requestId } = action.payload;
+
+      return {
+        ...state,
+        reply: {
+          author,
+          requestId,
+        }
+      }
+    }
+    case END_REQUEST_REPLY: {
+      return {
+        ...state,
+        reply: {
+          author: null,
+          requestId: null,
+        }
       }
     }
     default:
