@@ -4,12 +4,12 @@ import { HeaderContent, CustomHeader } from './header.css';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 
 
-const Header = () => {
+const Header = ({ isAuthentificated }) => {
   return (
     <CustomHeader>
       <HeaderContent>
         <ContactSupportIcon />
-        <Navigation isAuthentificated={true}/>
+        <Navigation isAuthentificated={isAuthentificated}/>
       </HeaderContent>
     </CustomHeader>
   )

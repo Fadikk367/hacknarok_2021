@@ -84,7 +84,7 @@ const Register = () => {
         e.preventDefault();
 
         if(isValid()){
-            dispatch(register({ login: email, password, firstName, lastName }))
+            dispatch(register({ login: email, password, firstName, lastName }));
         }
     }
 

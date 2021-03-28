@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
 import GlobalStyles, { Page, Main } from './Layout.css';
@@ -7,9 +8,11 @@ import { Header, Footer, ProtectedRoute } from 'common/components';
 
 
 function App() {
+  const auth = useSelector(state => state.auth);
+
   return (
     <div>
-      <Header />
+      <Header isAuthentificated={auth.isLoggedIn} />
       <Page elevation={10}>
         <Main>
           <Switch>
@@ -20,7 +23,7 @@ function App() {
             <ProtectedRoute 
               path="/profile"
               component={Profile}
-              auth={true} // auth.isLoggedIn
+              auth={auth.isLoggedIn} // auth.isLoggedIn
              />
           </Switch>
         </Main>

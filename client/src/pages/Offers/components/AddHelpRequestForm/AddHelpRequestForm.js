@@ -25,6 +25,7 @@ const AddHelpRequestForm = ({ onSubmit }) => {
 
   const handleFormSubmit = e => {
     e.preventDefault();
+
     dispatch(addHelpRequest({title, description, tags, category, date: new Date().toISOString().substring(0, 11)}));
     onSubmit();
   }

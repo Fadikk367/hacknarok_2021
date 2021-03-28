@@ -1,9 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 
-import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
