@@ -36,6 +36,9 @@ class RegisterSchema(LoginSchema):
 
 
 class HelpOfferSchema(Schema): 
+    class Meta:
+        unknown = INCLUDE 
+
     author_id = fields.Method("object_id")
 
     title = fields.Str(

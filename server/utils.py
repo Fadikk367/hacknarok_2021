@@ -26,6 +26,10 @@ class MongoJSONDecoder(JSONDecoder):
         obj = super().decode(o)
         if "_id" in obj:
             obj["_id"] = ObjectId(obj["_id"])
+        
+        if "author_id" in obj:
+            obj["author_id"] = ObjectId(obj["author_id"])
+
         return obj
 
 if __name__ == "__main__":
