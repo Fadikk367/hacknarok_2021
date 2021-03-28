@@ -114,3 +114,54 @@ class HelpRequestSchema(Schema):
     def validate_numbers(self, data, **kwargs):
         if not Category.has_value(data["category"]):
             raise ValidationError("No such category")
+
+class MessageSchema(Schema):
+    class Meta:
+        unknown = INCLUDE 
+
+    author_id = fields.Function(lambda obj: ObjectId(obj))
+
+    help_offer_id = fields.Function(lambda obj: ObjectId(obj))
+
+    date = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=8, max=10),
+        ]
+    )
+
+    platform = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=0, max=100),
+        ]
+    )
+
+    comment = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=0, max=5000),
+        ]
+    )
+
+class ConsultationSchema(Schema):
+    class Meta:
+        unknown = INCLUDE 
+
+    author_id = fields.Function(lambda obj: ObjectId(obj))
+
+    help_offer_id = fields.Function(lambda obj: ObjectId(obj))
+
+    date = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=8, max=10),
+        ]
+    )
+
+    platform = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=0, max=100),
+        ]
+    )

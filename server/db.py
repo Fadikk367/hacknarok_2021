@@ -21,3 +21,11 @@ class Database:
     @property
     def requests(self):
         return self.db["help-requests"]
+
+    @property
+    def messages(self):
+        return self.db["messages"]
+
+    @property
+    def consultations(self):
+        return self.db["consultations"]
