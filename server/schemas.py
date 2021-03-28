@@ -130,6 +130,13 @@ class MessageSchema(Schema):
         ]
     )
 
+    hour = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=3, max=5),
+        ]
+    )
+    
     platform = fields.Str(
         required=True,
         validate=[
@@ -156,6 +163,13 @@ class ConsultationSchema(Schema):
         required=True,
         validate=[
             validate.Length(min=8, max=10),
+        ]
+    )
+
+    hour = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=3, max=5),
         ]
     )
 
