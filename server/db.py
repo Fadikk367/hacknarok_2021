@@ -25,3 +25,7 @@ class Database:
     @property
     def messages(self):
         return self.db["messages"]
+
+    @property
+    def consultations(self):
+        return self.db["consultations"]
