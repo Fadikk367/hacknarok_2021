@@ -1,15 +1,21 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useSelector } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
-import GlobalStyles, { Page, Main } from './Layout.css';
+import { Page, Main } from './Layout.css';
 import { Home, Offers, Profile, Login, Register } from 'pages';
 import { Header, Footer, ProtectedRoute } from 'common/components';
 
+import { getRequestCategoires } from 'state/helpRequest'
+
 
 function App() {
+  const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
-
+  
+  useEffect(() => {
+    dispatch(getRequestCategoires());
+  }, [])
   return (
     <div>
       <Header isAuthentificated={auth.isLoggedIn} />

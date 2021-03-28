@@ -39,6 +39,23 @@ class HelpOfferSchema(Schema):
     class Meta:
         unknown = INCLUDE 
 
+    author = fields.Dict(
+        id=fields.Method("object_id"),
+        first_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        last_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        required=True
+    )
+
     author_id = fields.Method("object_id")
 
     title = fields.Str(
@@ -81,7 +98,22 @@ class HelpRequestSchema(Schema):
     class Meta:
         unknown = INCLUDE 
 
-    author_id = fields.Function(lambda obj: ObjectId(obj))
+    author = fields.Dict(
+        id=fields.Function(lambda obj: ObjectId(obj)),
+        first_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        last_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        required=True
+    )
 
     title = fields.Str(
         required=True,
@@ -110,7 +142,106 @@ class HelpRequestSchema(Schema):
         ]
     )
 
+    date = fields.Str(
+        required=True,
+    )
+
     @validates_schema
     def validate_numbers(self, data, **kwargs):
         if not Category.has_value(data["category"]):
             raise ValidationError("No such category")
+
+class MessageSchema(Schema):
+    class Meta:
+        unknown = INCLUDE 
+
+    author = fields.Dict(
+        id=fields.Function(lambda obj: ObjectId(obj)),
+        first_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        last_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        required=True
+    )
+
+    help_offer_id = fields.Function(lambda obj: ObjectId(obj))
+
+    date = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=8, max=10),
+        ]
+    )
+
+    hour = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=3, max=5),
+        ]
+    )
+    
+    platform = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=0, max=100),
+        ]
+    )
+
+    comment = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=0, max=5000),
+        ]
+    )
+
+class ConsultationSchema(Schema):
+    class Meta:
+        unknown = INCLUDE 
+
+    author = fields.Dict(
+        id=fields.Function(lambda obj: ObjectId(obj)),
+        first_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        last_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        required=True
+    )
+
+    help_offer_id = fields.Function(lambda obj: ObjectId(obj))
+
+    date = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=8, max=10),
+        ]
+    )
+
+    hour = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=3, max=5),
+        ]
+    )
+
+    platform = fields.Str(
+        required=True,
+        validate=[
+            validate.Length(min=0, max=100),
+        ]
+    )

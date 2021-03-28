@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Form, FormRow } from './AddHelpRequestForm.css';
 
@@ -16,7 +16,7 @@ import { addHelpRequest } from 'state/helpRequest';
 
 
 const AddHelpRequestForm = ({ onSubmit }) => {
-  const categories = ['programming', 'biology', 'phisics'];
+  const categories = useSelector(state => state.helpRequest.categories);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -25,8 +25,14 @@ const AddHelpRequestForm = ({ onSubmit }) => {
 
   const handleFormSubmit = e => {
     e.preventDefault();
+    dispatch(addHelpRequest({
+      title, 
+      description, 
+      tags: tags.split(','), 
+      category: categories.findIndex(cat => cat === category), 
+      date: new Date().toISOString().substring(0, 10)
+    }));
 
-    dispatch(addHelpRequest({title, description, tags, category, date: new Date().toISOString().substring(0, 11)}));
     onSubmit();
   }
 
