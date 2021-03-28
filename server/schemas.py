@@ -1,5 +1,7 @@
+from bson.objectid import ObjectId
 from marshmallow import Schema, fields, validate, validates_schema
 from marshmallow.exceptions import ValidationError
+from marshmallow.utils import INCLUDE
 from Category import Category
 
 class LoginSchema(Schema):
@@ -34,12 +36,10 @@ class RegisterSchema(LoginSchema):
 
 
 class HelpOfferSchema(Schema): 
-    author_id = fields.Str(
-        required=True,
-        validate=[
-            validate.Length(equal=24)
-        ]
-    )
+    class Meta:
+        unknown = INCLUDE 
+
+    author_id = fields.Method("object_id")
 
     title = fields.Str(
         required=True,
@@ -68,6 +68,9 @@ class HelpOfferSchema(Schema):
         ]
     )
 
+    def object_id(self, obj):
+        return ObjectId(obj)
+
     @validates_schema
     def validate_numbers(self, data, **kwargs):
         if not Category.has_value(data["category"]):
@@ -75,12 +78,10 @@ class HelpOfferSchema(Schema):
 
 
 class HelpRequestSchema(Schema): 
-    author_id = fields.Str(
-        required=True,
-        validate=[
-            validate.Length(equal=24)
-        ]
-    )
+    class Meta:
+        unknown = INCLUDE 
+
+    author_id = fields.Function(lambda obj: ObjectId(obj))
 
     title = fields.Str(
         required=True,
