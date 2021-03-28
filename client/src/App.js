@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
-import GlobalStyles, { Page, Main } from './Layout.css';
+import { Page, Main } from './Layout.css';
 import { Home, Offers, Profile, Login, Register } from 'pages';
 import { Header, Footer, ProtectedRoute } from 'common/components';
 
+import { getRequestCategoires } from 'state/helpRequest'
+
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getRequestCategoires());
+  }, [])
   return (
     <div>
       <Header />

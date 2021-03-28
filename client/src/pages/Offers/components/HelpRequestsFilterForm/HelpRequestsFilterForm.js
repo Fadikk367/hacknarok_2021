@@ -9,6 +9,8 @@ import FormControl from '@material-ui/core/FormControl';
 
 import { Form } from './HelpRequestsFilterForm.css';
 
+import { getHelpRequests } from 'state/helpRequest';
+
 
 const HelpRequestsFilterForm = () => {
   const categories = ['programming', 'biology', 'phisics'];

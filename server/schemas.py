@@ -110,6 +110,10 @@ class HelpRequestSchema(Schema):
         ]
     )
 
+    date = fields.Str(
+        required=True,
+    )
+
     @validates_schema
     def validate_numbers(self, data, **kwargs):
         if not Category.has_value(data["category"]):
