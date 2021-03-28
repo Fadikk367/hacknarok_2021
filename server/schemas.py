@@ -39,6 +39,23 @@ class HelpOfferSchema(Schema):
     class Meta:
         unknown = INCLUDE 
 
+    author = fields.Dict(
+        id=fields.Method("object_id"),
+        first_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        last_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        required=True
+    )
+
     author_id = fields.Method("object_id")
 
     title = fields.Str(
@@ -81,7 +98,22 @@ class HelpRequestSchema(Schema):
     class Meta:
         unknown = INCLUDE 
 
-    author_id = fields.Function(lambda obj: ObjectId(obj))
+    author = fields.Dict(
+        id=fields.Function(lambda obj: ObjectId(obj)),
+        first_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        last_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        required=True
+    )
 
     title = fields.Str(
         required=True,
