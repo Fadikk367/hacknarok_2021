@@ -29,7 +29,7 @@ const AddHelpRequestForm = ({ onSubmit }) => {
       title, 
       description, 
       tags: tags.split(','), 
-      category: categories.findIndex(cat => cat === category), 
+      category: categories.findIndex(cat => cat === category) + 1, 
       date: new Date().toISOString().substring(0, 10)
     }));
 
@@ -45,6 +45,9 @@ const AddHelpRequestForm = ({ onSubmit }) => {
           <FormControl>
             <InputLabel id="category-label">Category</InputLabel>
             <Select 
+              MenuProps={{
+                disableScrollLock: true
+              }}
               labelId="category-label" 
               value={category} 
               onChange={e => setCategory(e.target.value)}
