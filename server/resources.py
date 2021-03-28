@@ -36,14 +36,15 @@ def help_offer():
                 offer = { "author_id": current_user["_id"], **request.get_json()}
                 offer = HelpOfferSchema().load(offer)
                 id = db.offers.insert_one(offer).inserted_id
+                inserted_doc = db.offers.find_one({ "_id": id })
 
-                return {"_id": id}, 200
+                return jsonify(inserted_doc), 200
 
             except ValidationError as e:
-                return e.messages, 404
+                return jsonify(e.messages), 404
 
             except Exception as e:
-                return e
+                return jsonify(e)
         
         return post()
 
@@ -87,14 +88,18 @@ def help_request():
         @with_login
         def post(current_user):
             try:
+                print(request.get_json())
                 help_request_data = {"author_id": current_user["_id"], **request.get_json()}
                 help_request_data = HelpRequestSchema().load(help_request_data)
+                print(help_request_data)
                 id = db.requests.insert_one(help_request_data).inserted_id
-
-                return {"_id": id}, 200
+                print(id)
+                inserted_doc = db.requests.find_one({ "_id": id })
+                print(inserted_doc)
+                return jsonify(inserted_doc), 200
 
             except ValidationError as e:
-                return e.messages, 404
+                return jsonify(e.messages), 404
 
         return post()
 
@@ -123,6 +128,5 @@ def help_request():
 
 
 @res.route('/categories', methods=['GET'])
-@with_login
-def get_categories(current_user):
+def get_categories():
     return jsonify({ "categories": (vars(Category)['_member_names_'])})

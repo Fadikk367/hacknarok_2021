@@ -36,10 +36,10 @@ def login():
         return jsonify(db_user)
 
     except ValidationError as e:
-        return e.messages, 404
+        return jsonify(e.messages), 404
 
     except Exception as e:
-        return {"errmsg": e.args}, 404
+        return jsonify({"errmsg": e.args}), 404
     
 
 

@@ -1,10 +1,12 @@
 import { 
   GET_HELP_REQUESTS_SECCESS,
   ADD_HELP_REQUEST_SECCESS,
+  GET_CATEGORIES_SECCESS,
 } from './helpRequestActions';
 
 
 const initialState = {
+  categories: [],
   requests: [{
     _id: 1,
     title: 'Fizyka 1 LO',
@@ -40,10 +42,10 @@ function helpRequestReducer(state = initialState, action) {
   switch (action.type) {
     case GET_HELP_REQUESTS_SECCESS: {
       const helpRequests = action.payload;
-
+      console.log(helpRequests);
       return {
         ...state,
-        requests: [...helpRequests, ...initialState]
+        requests: [...helpRequests, ...initialState.requests]
       }
     }
     case ADD_HELP_REQUEST_SECCESS: {
@@ -52,6 +54,14 @@ function helpRequestReducer(state = initialState, action) {
       return {
         ...state,
         requests: [addedHelpRequest, ...state.requests]
+      }
+    }
+    case GET_CATEGORIES_SECCESS: {
+      const categories = action.payload;
+      
+      return {
+        ...state,
+        categories,
       }
     }
     default:
