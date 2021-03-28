@@ -147,7 +147,7 @@ def message():
                 dic = request.get_json()
                 help_offer_id = ObjectId(dic['help_offer_oid'])
                 del dic['help_offer_oid']
-                message = { "author_id": current_user["_id"], "help_offer_id": help_offer_id, **dic}
+                message = { "author": {"id": current_user["_id"], "first_name": current_user["firstName"], "last_name": current_user["lastName"]}, "help_offer_id": help_offer_id, **dic}
                 message = MessageSchema().load(message)
                 insterted_id = db.messages.insert_one(message).inserted_id
 
@@ -199,7 +199,7 @@ def consultation():
                 dic = request.get_json()
                 help_offer_id = ObjectId(dic['help_offer_oid'])
                 del dic['help_offer_oid']
-                consultation = { "author_id": current_user["_id"], "help_offer_id": help_offer_id, **dic}
+                consultation = { "author": {"id": current_user["_id"], "first_name": current_user["firstName"], "last_name": current_user["lastName"]}, "help_offer_id": help_offer_id, **dic}
                 consultation = ConsultationSchema().load(consultation)
                 insterted_id = db.consultations.insert_one(consultation).inserted_id
 

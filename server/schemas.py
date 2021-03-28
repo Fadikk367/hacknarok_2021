@@ -155,7 +155,22 @@ class MessageSchema(Schema):
     class Meta:
         unknown = INCLUDE 
 
-    author_id = fields.Function(lambda obj: ObjectId(obj))
+    author = fields.Dict(
+        id=fields.Function(lambda obj: ObjectId(obj)),
+        first_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        last_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        required=True
+    )
 
     help_offer_id = fields.Function(lambda obj: ObjectId(obj))
 
@@ -191,7 +206,22 @@ class ConsultationSchema(Schema):
     class Meta:
         unknown = INCLUDE 
 
-    author_id = fields.Function(lambda obj: ObjectId(obj))
+    author = fields.Dict(
+        id=fields.Function(lambda obj: ObjectId(obj)),
+        first_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        last_name=fields.Str(
+            required=True,
+            validate=[
+                validate.Length(min=1, max=50),
+            ]
+        ),
+        required=True
+    )
 
     help_offer_id = fields.Function(lambda obj: ObjectId(obj))
 
