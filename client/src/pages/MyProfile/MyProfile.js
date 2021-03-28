@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Rating from '@material-ui/lab/Rating';
 
-import { ProfileWrapper, Skill } from './profile.css';
+import { ProfileWrapper, Skill } from './myProfile.css';
 
 // skills would be pulled from the databes in the future
-const Profile = () => {
+const MyProfile = () => {
   const auth = useSelector(state => state.auth);
   const categories = useSelector(state => state.helpRequest.categories)
 
@@ -46,4 +47,4 @@ const Profile = () => {
   )
 }
 
-export default Profile;
+export default MyProfile;

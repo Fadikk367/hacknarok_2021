@@ -6,30 +6,39 @@ import {
 
 
 const initialState = {
-  user: null,
   token: null,
-  isLoggedIn: false
+  isLoggedIn: false,
+  firstName: null,
+  lastName: null,
+  login: null,
+  skills: {},
 }
 
 function authReducer(state = initialState, action) {
   switch (action.type) {
     case USER_REGISTER_SUCCESS: {
-      const { token, user } = action.payload;
+      const { token, firstName, lastName, login, skills } = action.payload;
 
       return {
         ...state,
-        user,
+        firstName,
+        lastName,
+        login,
+        skills,
         token,
         isLoggedIn: true,
       }
     }
     case USER_LOGIN_SUCCESS: {
-      const { token, user } = action.payload;
+      const { token, firstName, lastName, login, skills } = action.payload;
       localStorage.setItem('token', token);
-      
+
       return {
         ...state,
-        user,
+        firstName,
+        lastName,
+        login,
+        skills,
         token,
         isLoggedIn: true,
       }

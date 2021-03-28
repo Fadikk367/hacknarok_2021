@@ -6,7 +6,7 @@ import { Wrapper } from './Footer.css';
 const Footer = () => {
   return (
     <Wrapper>
-      footer
+      @2021 Counsulty
     </Wrapper>
   )
 }

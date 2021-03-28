@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
 import { Page, Main } from './Layout.css';
-import { Home, Offers, Profile, Login, Register } from 'pages';
+import { Offers, Profile, MyProfile, Login, Register } from 'pages';
 import { Header, Footer, ProtectedRoute } from 'common/components';
 
 import { getRequestCategoires } from 'state/helpRequest'
@@ -24,15 +24,16 @@ function App() {
       <Page elevation={10}>
         <Main>
           <Switch>
-            <Route path='/' exact component={Home}/>
             <Route path='/offers' component={Offers}/>
             <Route path='/login' component={Login}/>
             <Route path='/register' component={Register}/>
+            <Route path='/profile' component={Profile}/>
             <ProtectedRoute 
-              path="/profile"
-              component={Profile}
+              path='/account'
+              component={MyProfile}
               auth={auth.isLoggedIn} // auth.isLoggedIn
-             />
+            />
+            <Route component={Offers} />
           </Switch>
         </Main>
         <Footer />
