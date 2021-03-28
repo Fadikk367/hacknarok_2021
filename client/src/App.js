@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useSelector } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
@@ -11,13 +11,14 @@ import { getRequestCategoires } from 'state/helpRequest'
 
 function App() {
   const dispatch = useDispatch();
-
+  const auth = useSelector(state => state.auth);
+  
   useEffect(() => {
     dispatch(getRequestCategoires());
   }, [])
   return (
     <div>
-      <Header />
+      <Header isAuthentificated={auth.isLoggedIn} />
       <Page elevation={10}>
         <Main>
           <Switch>
@@ -28,7 +29,7 @@ function App() {
             <ProtectedRoute 
               path="/profile"
               component={Profile}
-              auth={true} // auth.isLoggedIn
+              auth={auth.isLoggedIn} // auth.isLoggedIn
              />
           </Switch>
         </Main>

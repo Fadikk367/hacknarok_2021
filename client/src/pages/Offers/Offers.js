@@ -21,7 +21,7 @@ const Offers = () => {
 
   useEffect(() => {
     dispatch(getHelpRequests());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
