@@ -33,7 +33,7 @@ def help_offer():
         @with_login
         def post(current_user):
             try:
-                offer = { "author": {"id": current_user["_id"], "first_name": current_user["firstName"], "last_name": current_user["lastName"], "login": current_user['login']}, **request.get_json()}
+                offer = { "author": {"id": current_user["_id"], "firstName": current_user["firstName"], "lastName": current_user["lastName"], "login": current_user['login']}, **request.get_json()}
                 offer = HelpOfferSchema().load(offer)
                 id = db.offers.insert_one(offer).inserted_id
                 inserted_doc = db.offers.find_one({ "_id": id })
@@ -58,7 +58,7 @@ def help_offer():
                 if not to_delete:
                     raise Exception("Not found this record") 
 
-                if to_delete["author_id"] != current_user["_id"]:
+                if to_delete["author"]['id'] != current_user["_id"]:
                     raise Exception("Your are not permitted to delete this record.")
 
                 result = db.offers.delete_one(received_data)
@@ -89,7 +89,7 @@ def help_request():
         def post(current_user):
             try:
                 print(request.get_json())
-                help_request_data = {"author": {"id": current_user["_id"], "first_name": current_user["firstName"], "last_name": current_user["lastName"], "login": current_user['login']}, **request.get_json()}
+                help_request_data = {"author": {"id": current_user["_id"], "firstName": current_user["firstName"], "lastName": current_user["lastName"], "login": current_user['login']}, **request.get_json()}
                 help_request_data = HelpRequestSchema().load(help_request_data)
                 print(help_request_data)
                 id = db.requests.insert_one(help_request_data).inserted_id
@@ -113,7 +113,7 @@ def help_request():
                 if not to_delete:
                     raise Exception("Not found this record") 
 
-                if to_delete["author_id"] != current_user["_id"]:
+                if to_delete["author"]['id'] != current_user["_id"]:
                     raise Exception("Your are not permitted to delete this record.")
                 
                 print(received_data)
@@ -136,8 +136,8 @@ def get_categories():
 def message():
 
     if request.method == 'GET':
-        help_offer_oid = request.args.get('help_offer_oid')
-        result = list(db.messages.find({'help_offer_id': ObjectId(help_offer_oid)}))
+        help_offer_oid = request.args.get('helpOfferOid')
+        result = list(db.messages.find({'helpOfferId': ObjectId(help_offer_oid)}))
         return jsonify(result)
 
     if request.method == 'POST':
@@ -145,9 +145,9 @@ def message():
         def post(current_user):
             try:
                 dic = request.get_json()
-                help_offer_id = ObjectId(dic['help_offer_oid'])
-                del dic['help_offer_oid']
-                message = { "author": {"id": current_user["_id"], "first_name": current_user["firstName"], "last_name": current_user["lastName"], "login": current_user['login']}, "help_offer_id": help_offer_id, **dic}
+                help_offer_id = ObjectId(dic['helpOfferOid'])
+                del dic['helpOfferOid']
+                message = { "author": {"id": current_user["_id"], "firstName": current_user["firstName"], "lastName": current_user["lastName"], "login": current_user['login']}, "helpOfferId": help_offer_id, **dic}
                 message = MessageSchema().load(message)
                 insterted_id = db.messages.insert_one(message).inserted_id
 
@@ -171,7 +171,7 @@ def message():
                 if not to_delete:
                     raise Exception("Not found this record") 
 
-                if to_delete["author_id"] != current_user["_id"]:
+                if to_delete["author"]['id'] != current_user["_id"]:
                     raise Exception("Your are not permitted to delete this record.")
                 
                 result = db.messages.delete_one(received_data)
@@ -197,9 +197,9 @@ def consultation():
         def post(current_user):
             try:
                 dic = request.get_json()
-                help_offer_id = ObjectId(dic['help_offer_oid'])
-                del dic['help_offer_oid']
-                consultation = { "author": {"id": current_user["_id"], "first_name": current_user["firstName"], "last_name": current_user["lastName"], "login": current_user['login']}, "help_offer_id": help_offer_id, **dic}
+                help_offer_id = ObjectId(dic['helpOfferOid'])
+                del dic['helpOfferOid']
+                consultation = { "author": {"id": current_user["_id"], "firstName": current_user["firstName"], "lastName": current_user["lastName"], "login": current_user['login']}, "helpOfferId": help_offer_id, **dic}
                 consultation = ConsultationSchema().load(consultation)
                 insterted_id = db.consultations.insert_one(consultation).inserted_id
 
@@ -223,7 +223,7 @@ def consultation():
                 if not to_delete:
                     raise Exception("Not found this record") 
 
-                if to_delete["author_id"] != current_user["_id"]:
+                if to_delete["author"]['id'] != current_user["_id"]:
                     raise Exception("Your are not permitted to delete this record.")
                 
                 result = db.consultations.delete_one(received_data)
