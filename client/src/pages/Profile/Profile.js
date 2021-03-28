@@ -1,47 +1,30 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import Rating from '@material-ui/lab/Rating';
 
-import { ProfileWrapper, Skill } from './profile.css';
+import { ProfileWrapper } from './profile.css';
 
 // skills would be pulled from the databes in the future
 const Profile = () => {
-  const auth = useSelector(state => state.auth);
-  const categories = useSelector(state => state.helpRequest.categories)
+  const { id } = useParams();
 
-  let skills = [];
-  if(auth.skills){
-    
-    for (const [k,v] of Object.entries(auth.skills)) {
-      skills.push( 
-        <Skill>
-          {categories[k-1]}
-          <Rating 
-            value={parseFloat(v)}
-            readOnly
-            precision={0.5}
-            size="large" 
-          />
-        </Skill>
-    )}
-  }
+  
+  const auth = useSelector(state => state.auth)
+  const requests = useSelector(state => state.helpRequest.requests)
+  const userData = requests.find(req => id === req._id);
 
+  console.log(userData.author);
 
   return (
     <ProfileWrapper>
       <AccountCircleIcon style={{ fontSize: 200, color:"darkgray" }}/>
       <br/>
-      { auth.firstName + " " + auth.lastName }
+      {userData.author.firstName + " " + userData.author.lastName}
       <br/><br/>
-      { auth.login }
-      <hr/>        
-      {skills}
+      {auth.isLoggedIn ? userData.author.login : null}    
       <br/><hr/>Opis<br/>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur praesentium, molestias, modi odio unde assumenda esse aut, quas sapiente aliquid dolor reiciendis qui ipsum? Pariatur delectus praesentium amet natus ullam!
-      
-      <br/><hr/>Requests<br/>
-      <br/><hr/>Offers<br/>
     </ProfileWrapper>
   )
 }

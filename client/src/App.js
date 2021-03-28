@@ -27,7 +27,7 @@ function App() {
             <Route path='/offers' component={Offers}/>
             <Route path='/login' component={Login}/>
             <Route path='/register' component={Register}/>
-            <Route path='/profile' component={Profile}/>
+            <Route path='/profile/:id' exact component={Profile}/>
             <ProtectedRoute 
               path='/account'
               component={MyProfile}

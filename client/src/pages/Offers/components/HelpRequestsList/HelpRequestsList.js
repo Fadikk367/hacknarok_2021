@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -12,6 +13,12 @@ import Typography from '@material-ui/core/Typography';
 import { RequestsSection, CardHeader } from './HelpRequestsList.css';
 
 import { replyStart } from 'state/helpRequest'
+
+import styled from 'styled-components';
+
+const CustomLink = styled(Link)`
+  text-decoration: none;
+`;
 
   
 const HelpRequestsList = ({ openReplyModal }) => {
@@ -61,9 +68,11 @@ const HelpRequestsList = ({ openReplyModal }) => {
             <Button color="primary" onClick={() => handleReplyClick(request.author, request._id)}>
               Reply
             </Button>
-            <Button color="primary">
-              Show profile
-            </Button>
+            <CustomLink to={`/profile/${request._id}`}>
+              <Button color="primary">
+                Show profile
+              </Button>
+            </CustomLink>
           </CardActions>
         </Card>
       ))}

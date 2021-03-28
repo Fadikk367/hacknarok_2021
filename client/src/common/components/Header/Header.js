@@ -8,7 +8,7 @@ const Header = ({ isAuthentificated }) => {
   return (
     <CustomHeader>
       <HeaderContent>
-        <ContactSupportIcon />
+        <ContactSupportIcon /> 
         <Navigation isAuthentificated={isAuthentificated}/>
       </HeaderContent>
     </CustomHeader>
