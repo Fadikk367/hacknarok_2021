@@ -9,6 +9,7 @@ export const GET_CATEGORIES_FAILURE = 'GET_CATEGORIES_FAILURE';
 
 
 export const addHelpRequest = requestAttributes => async dispatch => {
+  console.log("hi from add");
   try {
     const res = await axios.post('/api/resources/help-request', requestAttributes);
 
@@ -40,7 +41,6 @@ export const getHelpRequests = (filters, type) => async dispatch => {
       }
     }
   }
-  console.log(filters);
 
   try {
     const res = await axios.get(`/api/resources/help-${type}?${query.toString()}`, filters);

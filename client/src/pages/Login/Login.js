@@ -103,7 +103,7 @@ const Login = () => {
           </Grid>
         </form>
       </div>
-      { auth.isLoggedIn ? <Redirect to="/offer" /> : null}
+      { auth.isLoggedIn ? <Redirect to="/offers" /> : null}
     </LoginWrapper>
   );
 }

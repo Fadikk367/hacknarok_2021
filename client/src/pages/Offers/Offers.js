@@ -25,6 +25,7 @@ const Offers = () => {
     dispatch(getHelpRequests({}, helpType));
   }, [helpType]);
 
+
   return (
     <div>
       <Paper elevation={5} square style={{ marginBottom: '30px' }}>
