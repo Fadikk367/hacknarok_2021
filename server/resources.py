@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from marshmallow.exceptions import ValidationError
 from bson import ObjectId
 from Category import Category
-from schemas import HelpOfferSchema, HelpRequestSchema
+from schemas import HelpOfferSchema, HelpRequestSchema, MessageSchema
 from with_login import with_login
 from db import Database
 from flask import jsonify
@@ -114,3 +114,33 @@ def help_request():
 @with_login
 def get_categories(current_user):
     return jsonify({ "categories": (vars(Category)['_member_names_'])})
+
+
+@res.route('/message', methods=['GET', 'POST'])
+def message():
+
+    if request.method == 'GET':
+        help_offer_oid = request.args.get('help_offer_oid')
+        result = list(db.messages.find({'help_offer_id': ObjectId(help_offer_oid)}))
+        return jsonify(result)
+
+    if request.method == 'POST':
+        @with_login
+        def post(current_user):
+            try:
+                dic = request.get_json()
+                help_offer_id = ObjectId(dic['help_offer_oid'])
+                del dic['help_offer_oid']
+                message = { "author_id": current_user["_id"], "help_offer_id": help_offer_id, **dic}
+                message = MessageSchema().load(message)
+                db.messages.insert_one(message)
+
+                return "OK", 200
+
+            except ValidationError as e:
+                return e.messages, 404
+
+            except Exception as e:
+                return str(e), 500
+        
+        return post()
