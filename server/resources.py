@@ -25,7 +25,7 @@ def help_offer():
         if(tags):
             query['tags'] = {'$all': tags}
         if(category):
-            query['category'] = category
+            query['category'] = int(category)
         result = list(db.offers.find(query))
         return jsonify(result)
 
@@ -80,7 +80,7 @@ def help_request():
         if(tags):
             query['tags'] = {'$all': tags}
         if(category):
-            query['category'] = category
+            query['category'] = int(category)
         result = list(db.requests.find(query))
         return jsonify(result)
 
