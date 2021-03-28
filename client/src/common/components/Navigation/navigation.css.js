@@ -30,10 +30,6 @@ export const LogoutButton = styled(Button)`
     }
 `;
 
-export const MenuBurger = styled.div` 
-    cursor: pointer;
-`
-
 export const Line = styled.div`
     width: 25px;
     height: 3px;
@@ -42,3 +38,25 @@ export const Line = styled.div`
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
 `;
+
+export const MenuBurger = styled.div` 
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    padding: 10px;
+
+
+    ${Line}:nth-child(1).toggle {
+        transform: ${({ open }) => open ? 'rotate(-45deg) translate(-5px, 6px)' : 'rotate(0)'};
+    } 
+    
+    ${Line}:nth-child(2).toggle {
+        opacity: ${({ open }) => open ? '0' : '1'};
+        transform: ${({ open }) => open ? 'translateX(20px)' : 'translateX(0)'};
+    }
+
+    ${Line}:nth-child(3).toggle {
+        transform: ${({ open }) => open ? 'rotate(45deg) translate(-5px, -6px)' : 'rotate(0)'};
+    } 
+`
+
