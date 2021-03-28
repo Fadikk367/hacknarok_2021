@@ -42,7 +42,6 @@ function helpRequestReducer(state = initialState, action) {
   switch (action.type) {
     case GET_HELP_REQUESTS_SECCESS: {
       const helpRequests = action.payload;
-      console.log(helpRequests);
       return {
         ...state,
         requests: [...helpRequests, ...initialState.requests]
