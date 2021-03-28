@@ -35,9 +35,9 @@ def help_offer():
             try:
                 offer = { "author_id": current_user["_id"], **request.get_json()}
                 offer = HelpOfferSchema().load(offer)
-                db.offers.insert_one(offer)
+                id = db.offers.insert_one(offer).inserted_id
 
-                return "OK", 200
+                return {"_id": id}, 200
 
             except ValidationError as e:
                 return e.messages, 404
@@ -52,10 +52,18 @@ def help_offer():
         def delete(current_user):
             try:
                 received_data = request.get_json()
-                result = db.requests.delete_one(received_data)
+                to_delete = db.offers.find_one(received_data)
+
+                if not to_delete:
+                    raise Exception("Not found this record") 
+
+                if to_delete["author_id"] != current_user["_id"]:
+                    raise Exception("Your are not permitted to delete this record.")
+
+                result = db.offers.delete_one(received_data)
 
                 return { "msg": "OK", "deleted": result.deleted_count}, 200
-
+            
             except Exception as e:
                 return {"errmsg": str(e)}, 404
 
@@ -81,9 +89,9 @@ def help_request():
             try:
                 help_request_data = {"author_id": current_user["_id"], **request.get_json()}
                 help_request_data = HelpRequestSchema().load(help_request_data)
-                db.requests.insert_one(help_request_data)
+                id = db.requests.insert_one(help_request_data).inserted_id
 
-                return "OK", 200
+                return {"_id": id}, 200
 
             except ValidationError as e:
                 return e.messages, 404
@@ -96,6 +104,10 @@ def help_request():
             try:
                 received_data = request.get_json()
                 to_delete = db.requests.find_one(received_data)
+
+                if not to_delete:
+                    raise Exception("Not found this record") 
+
                 if to_delete["author_id"] != current_user["_id"]:
                     raise Exception("Your are not permitted to delete this record.")
                 
