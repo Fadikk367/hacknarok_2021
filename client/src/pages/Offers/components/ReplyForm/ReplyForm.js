@@ -25,7 +25,13 @@ const ReplyForm = ({ onSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(sendMessage({ comment, date, platform, helpOfferOid: reply.requestId }));
+    dispatch(sendMessage({ 
+      comment, 
+      date, 
+      platform, 
+      helpOfferOid: reply.requestId, 
+      hour: new Date().toISOString().substring(11, 19)
+    }));
     onSubmit();
   }
 

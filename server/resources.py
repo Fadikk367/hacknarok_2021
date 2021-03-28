@@ -151,13 +151,13 @@ def message():
                 message = MessageSchema().load(message)
                 insterted_id = db.messages.insert_one(message).inserted_id
 
-                return {"_id": insterted_id}, 200
+                return jsonify({"_id": insterted_id}), 200
 
             except ValidationError as e:
-                return e.messages, 404
+                return jsonify(e.messages), 404
 
             except Exception as e:
-                return str(e), 500
+                return jsonify(str(e)), 500
         
         return post()
 
