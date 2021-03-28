@@ -1,5 +1,5 @@
-import React, { useEffect, useSelector } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
 import { Page, Main } from './Layout.css';
@@ -15,7 +15,9 @@ function App() {
   
   useEffect(() => {
     dispatch(getRequestCategoires());
-  }, [])
+  }, [dispatch])
+
+  
   return (
     <div>
       <Header isAuthentificated={auth.isLoggedIn} />
