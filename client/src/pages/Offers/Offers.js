@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import Paper from '@material-ui/core/Paper';
@@ -16,15 +17,42 @@ import { getHelpRequests } from 'state/helpRequest'
 
 const Offers = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [helpType, setHelpType] = useState('request');
   const [isFilterFormOpen, setIsFilterFormOpen] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getHelpRequests());
-  }, []);
+    dispatch(getHelpRequests({}, helpType));
+  }, [helpType]);
 
   return (
     <div>
+      <Paper elevation={5} square style={{ marginBottom: '30px' }}>
+        <FlexRow>
+          <Button
+            style={{ 
+              flex: 1, 
+              backgroundColor: helpType === 'request' ? '#ad1f1f' : 'white',
+              color: helpType === 'request' ? 'white' : 'rgba(0, 0, 0, 0.87)'
+            }} 
+            onClick={() => setHelpType('request')} 
+            size='large'
+          >
+            Help requests
+          </Button>
+          <Button 
+            style={{ 
+              flex: 1, 
+              backgroundColor: helpType === 'offer' ? '#ad1f1f' : 'white',
+              color: helpType === 'offer' ? 'white' : 'rgba(0, 0, 0, 0.87)'
+             }} 
+            onClick={() => setHelpType('offer')} 
+            size='large'
+          >
+            Help offers
+          </Button>
+        </FlexRow>
+      </Paper>
       <Paper elevation={5} square style={{ marginBottom: '30px' }}>
         <FlexRow>
           <Button 
@@ -43,7 +71,7 @@ const Offers = () => {
           </Button>
         </FlexRow>
         <Collapse in={isFilterFormOpen}>
-          <HelpRequestsFilterForm />
+          <HelpRequestsFilterForm helpType={helpType}/>
         </Collapse>
       </Paper>
       <HelpRequestsList />

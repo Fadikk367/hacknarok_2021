@@ -26,9 +26,24 @@ export const addHelpRequest = requestAttributes => async dispatch => {
   }
 }
 
-export const getHelpRequests = filters => async dispatch => {
+export const getHelpRequests = (filters, type) => async dispatch => {
+  let query = new URLSearchParams();
+
+  if (Object.keys(filters).length !== 0) {
+    if (filters.category !== -1) 
+      query.append('category', filters.category);
+
+    if (filters.tags.length !== 0) {
+      for (const tag of filters.tags) {
+        if (tag)
+          query.append('tags', tag);
+      }
+    }
+  }
+  console.log(filters);
+
   try {
-    const res = await axios.get('/api/resources/help-request', filters);
+    const res = await axios.get(`/api/resources/help-${type}?${query.toString()}`, filters);
 
     dispatch({
       type: GET_HELP_REQUESTS_SECCESS,
