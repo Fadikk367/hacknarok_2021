@@ -1,5 +1,5 @@
 from bson import ObjectId
-from flask.json import JSONEncoder
+from flask.json import JSONEncoder, JSONDecoder
 
 def mongo_connection_string(
     MONGO_USER, 
@@ -21,6 +21,12 @@ class MongoJSONEncoder(JSONEncoder):
         else:
             return super().default(o)
 
+class MongoJSONDecoder(JSONDecoder):
+    def decode(self, o):
+        obj = super().decode(o)
+        if "_id" in obj:
+            obj["_id"] = ObjectId(obj["_id"])
+        return obj
 
 if __name__ == "__main__":
     pass

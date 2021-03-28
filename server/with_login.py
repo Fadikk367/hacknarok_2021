@@ -12,7 +12,7 @@ def with_login(f):
             token = request.headers["x-access-tokens"]
         
         if not token:
-            return {"message": "valid token is missing"}, 401
+            return {"message": "Valid token is missing"}, 401
         
         current_user = None
         try:
