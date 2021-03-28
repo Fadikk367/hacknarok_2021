@@ -184,20 +184,14 @@ class MessageSchema(Schema):
         required=True
     )
 
-    help_offer_id = fields.Function(lambda obj: ObjectId(obj))
+    helpOfferOid = fields.Function(lambda obj: ObjectId(obj))
 
     date = fields.Str(
         required=True,
-        validate=[
-            validate.Length(min=8, max=10),
-        ]
     )
 
     hour = fields.Str(
         required=True,
-        validate=[
-            validate.Length(min=3, max=5),
-        ]
     )
     
     platform = fields.Str(

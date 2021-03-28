@@ -51,7 +51,7 @@ const HelpRequestsList = ({ openReplyModal }) => {
               </Grid>
               <Grid item xs={11}>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  {categories[request.category]}
+                  {categories[request.category % 5]}
                 </Typography>
               </Grid>
             </Grid>

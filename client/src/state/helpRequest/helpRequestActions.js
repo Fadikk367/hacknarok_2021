@@ -90,15 +90,13 @@ export const replyEnd = () => {
 
 export const sendMessage = message => async dispatch => {
   try {
-    const res = await axios.post('/api/resources/messages', message);
+    const res = await axios.post('/api/resources/message', message);
 
     dispatch({
       type: GET_CATEGORIES_SECCESS,
       payload: res.data.categories,
     });
   } catch(err) {
-    console.log(err);
-    
     dispatch({
       type: GET_CATEGORIES_FAILURE,
       payload: err.message,
