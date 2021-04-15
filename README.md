@@ -1,5 +1,6 @@
 # Hi there
 
+![drawing](https://github.com/Fadikk367/hacknarok_2021/edit/main/gify.gif)
 ## branche związane z backendem:
 prefix: server/nazwa-feature-implementowanego-na-brachu
 
